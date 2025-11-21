@@ -15,6 +15,21 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service="$app" --action="stop"
 
 #=================================================
+# LOAD SETTINGS
+#=================================================
+ynh_script_progression "Loading installation settings..."
+
+db_name=$(ynh_app_setting_get --key=db_name)
+mongo_version=$(ynh_app_setting_get --key=mongo_version)
+
+#=================================================
+# UPGRADE DEPENDENCIES
+#=================================================
+ynh_script_progression "Upgrading dependencies..."
+
+ynh_hide_warnings ynh_install_mongo
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."

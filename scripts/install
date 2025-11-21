@@ -14,6 +14,13 @@ ynh_script_progression "Installing dependencies..."
 
 ynh_hide_warnings corepack enable && corepack prepare pnpm@latest --activate
 
+ynh_hide_warnings ynh_install_mongo
+
+db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
+ynh_app_setting_set --key=db_name --value=$db_name
+ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
