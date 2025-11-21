@@ -56,6 +56,13 @@ ynh_script_progression "Installing $app..."
 
 pushd $install_dir
     ynh_hide_warnings pnpm install
+popd
+
+pushd $install_dir/apps/backend
+    ynh_hide_warnings pnpm run build
+popd
+
+pushd $install_dir/apps/frontend
     ynh_hide_warnings pnpm run build
 popd
 
